@@ -3,7 +3,6 @@ package com.theballotbears.hackathon;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import com.tylerroyer.molasses.Camera;
 import com.tylerroyer.molasses.Game;
 import com.tylerroyer.molasses.GameGraphics;
 import com.tylerroyer.molasses.Screen;
@@ -12,17 +11,14 @@ import com.tylerroyer.molasses.TileMap;
 import com.tylerroyer.molasses.events.*;
 
 import org.apache.commons.lang3.mutable.MutableBoolean;
-import org.apache.commons.lang3.mutable.MutableDouble;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 public class GameScreen extends Screen {
-    private Camera camera;
     private TileMap tileMap;
     private Player player;
-    private final int START_X = 5, START_Y = 5;
+    private final int START_X = 7, START_Y = 7;
     private final int TILE_SIZE = 32;
     private MutableInt playerX = new MutableInt(START_X), playerY = new MutableInt(START_Y);
-    private MutableDouble cameraX = new MutableDouble(0), cameraY = new MutableDouble(0);
     private MutableInt playerDirection = new MutableInt(2);
     private MutableBoolean playerCanMoveUp = new MutableBoolean(false);
     private MutableBoolean playerCanMoveRight = new MutableBoolean(false);
@@ -33,9 +29,8 @@ public class GameScreen extends Screen {
     @Override
     public void onFocus() {
         player = new Player(playerX, playerY, playerDirection);
-        camera = new Camera(cameraX, cameraY);
 
-        tileMap = new TileMap(0, 0, "map.mtm");
+        tileMap = new TileMap(0, 0, "room1.mtm");
         ArrayList<Double> zoom = new ArrayList<>();
         zoom.add((double) TILE_SIZE/128);
         tileMap.prepareTileMapForScaling(new MutableInt(0), 0, zoom);
@@ -76,8 +71,6 @@ public class GameScreen extends Screen {
 
     @Override
     public void render(GameGraphics g) {
-        g.setCamera(camera);
-
         tileMap.render(g);
         player.render(g);
     }
@@ -102,12 +95,5 @@ public class GameScreen extends Screen {
 
         tileMap.update();
         player.update();
-        
-        if (player.getX() >= TILE_SIZE * START_X && player.getX() <= (tileMap.getWidth()-1) * TILE_SIZE - TILE_SIZE * START_X) {
-            camera.setOffsetX(-(player.getX() - TILE_SIZE * START_X));
-        }
-        if (player.getY() >= TILE_SIZE * START_Y && player.getY() <= (tileMap.getHeight()-1) * TILE_SIZE - TILE_SIZE * START_Y) {
-            camera.setOffsetY(-(player.getY() - TILE_SIZE * START_X));
-        }
     }   
 }
