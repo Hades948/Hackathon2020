@@ -67,7 +67,7 @@ public class OpeningScreen extends Screen {
         diag4.put(new Point(OFF, 50), "They approach you and knock");
         diag4.put(new Point(OFF, 75), "you the f out.");
 
-        diag5.put(new Point(OFF, 50), "A striking paint fills your");
+        diag5.put(new Point(OFF, 50), "A striking pain fills your");
         diag5.put(new Point(OFF, 75), "head as you wake up. Your");
         diag5.put(new Point(OFF, 100), "hands are tied behind you.");
         diag5.put(new Point(OFF, 125), "You appear to be in the");
