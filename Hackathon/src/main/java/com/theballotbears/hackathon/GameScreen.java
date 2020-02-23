@@ -16,7 +16,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
 public class GameScreen extends Screen {
     private TileMap tileMap;
     private Player player;
-    private final int START_X = 7, START_Y = 7;
+    private final int START_X = 7, START_Y = 6;
     private final int TILE_SIZE = 32;
     private MutableInt playerX = new MutableInt(START_X), playerY = new MutableInt(START_Y);
     private MutableInt playerDirection = new MutableInt(2);
@@ -30,7 +30,7 @@ public class GameScreen extends Screen {
     public void onFocus() {
         player = new Player(playerX, playerY, playerDirection);
 
-        tileMap = new TileMap(0, 0, "room1.mtm");
+        tileMap = new TileMap(0, 0, "map.mtm");
         ArrayList<Double> zoom = new ArrayList<>();
         zoom.add((double) TILE_SIZE/128);
         tileMap.prepareTileMapForScaling(new MutableInt(0), 0, zoom);
