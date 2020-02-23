@@ -20,7 +20,7 @@ public class GameScreen extends Screen {
     private boolean key = false;
     private boolean rope = false;
     private boolean earPiece = false;
-    private String info = "";
+    private String info = "Use arrow keys to move.  Use Space bar to inspect.";
     private TileMap tileMap;
     private Player player;
     private final int START_X = 7, START_Y = 6;
