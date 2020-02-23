@@ -19,14 +19,16 @@ public class GameScreen extends Screen {
     private Camera camera;
     private TileMap tileMap;
     private Player player;
-    MutableInt playerX = new MutableInt(11), playerY = new MutableInt(11);
-    MutableDouble cameraX = new MutableDouble(0), cameraY = new MutableDouble(0);
-    MutableInt playerDirection = new MutableInt(2);
-    MutableBoolean playerCanMoveUp = new MutableBoolean(false);
-    MutableBoolean playerCanMoveRight = new MutableBoolean(false);
-    MutableBoolean playerCanMoveDown = new MutableBoolean(false);
-    MutableBoolean playerCanMoveLeft = new MutableBoolean(false);
-    MutableBoolean canInspect = new MutableBoolean(false);
+    private final int START_X = 5, START_Y = 5;
+    private final int TILE_SIZE = 32;
+    private MutableInt playerX = new MutableInt(START_X), playerY = new MutableInt(START_Y);
+    private MutableDouble cameraX = new MutableDouble(0), cameraY = new MutableDouble(0);
+    private MutableInt playerDirection = new MutableInt(2);
+    private MutableBoolean playerCanMoveUp = new MutableBoolean(false);
+    private MutableBoolean playerCanMoveRight = new MutableBoolean(false);
+    private MutableBoolean playerCanMoveDown = new MutableBoolean(false);
+    private MutableBoolean playerCanMoveLeft = new MutableBoolean(false);
+    private MutableBoolean canInspect = new MutableBoolean(false);
 
     @Override
     public void onFocus() {
@@ -35,7 +37,7 @@ public class GameScreen extends Screen {
 
         tileMap = new TileMap(0, 0, "map.mtm");
         ArrayList<Double> zoom = new ArrayList<>();
-        zoom.add((double) 32/128);
+        zoom.add((double) TILE_SIZE/128);
         tileMap.prepareTileMapForScaling(new MutableInt(0), 0, zoom);
 
         Event playerYUp = new DecrementIntegerEvent(playerY, 1, 0);
@@ -96,17 +98,16 @@ public class GameScreen extends Screen {
         playerCanMoveRight.setValue(tileRight == null ? false : !tileRight.isSolid());
         playerCanMoveDown.setValue(tileDown == null ? false : !tileDown.isSolid());
         playerCanMoveLeft.setValue(tileLeft == null ? false : !tileLeft.isSolid());
-        canInspect.setValue(tileInFront == null ? false : tileInFront.getFlipBookName().equals("object.mfb"));
+        canInspect.setValue(tileInFront == null ? false : tileInFront.getFlipBookName().equals("object.mfb"));//todo
 
         tileMap.update();
         player.update();
         
-        if (player.getX() >= 352 && player.getX() <= (tileMap.getWidth()-1) * 32 - 352) {
-            camera.setOffsetX(-(player.getX() - 352));
+        if (player.getX() >= TILE_SIZE * START_X && player.getX() <= (tileMap.getWidth()-1) * TILE_SIZE - TILE_SIZE * START_X) {
+            camera.setOffsetX(-(player.getX() - TILE_SIZE * START_X));
         }
-        if (player.getY() >= 352 && player.getY() <= (tileMap.getHeight()-1) * 32 - 352) {
-            camera.setOffsetY(-(player.getY() - 352));
+        if (player.getY() >= TILE_SIZE * START_Y && player.getY() <= (tileMap.getHeight()-1) * TILE_SIZE - TILE_SIZE * START_Y) {
+            camera.setOffsetY(-(player.getY() - TILE_SIZE * START_X));
         }
-    }
-    
+    }   
 }
