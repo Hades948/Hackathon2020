@@ -18,6 +18,8 @@ import com.tylerroyer.molasses.events.SetIntegerEvent;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 public class EndScreen extends Screen {
+    private float off = 0;
+    private float speed = 1.5f;
     private ArrayList<HashMap<Point, String>> diag = new ArrayList<>();
     private MutableInt diagIndex = new MutableInt(0);
     private Button next;
@@ -98,12 +100,12 @@ public class EndScreen extends Screen {
         g.setColor(Color.WHITE);
         g.setFont(Config.gameFont);
         for (Entry<Point, String> e : diag.get(diagIndex.getValue()).entrySet()) {
-            g.drawString(e.getValue(), e.getKey().getX(), e.getKey().getY());
+            g.drawString(e.getValue(), e.getKey().getX() + off, e.getKey().getY());
         }
 
         if (diagIndex.getValue() == 1) {
             g.setFont(Config.gameFont.deriveFont(108.0f));
-            g.drawString(choice1 + " " + choice2, 150, 300);
+            g.drawString(choice1 + " " + choice2, 150 + off, 300);
         }
     }
 
@@ -118,6 +120,13 @@ public class EndScreen extends Screen {
                 choice2 = num.getValue();
             }
             num.setValue(-1);
+        }
+
+        if (diagIndex.getValue() == 1) {
+            off += speed;
+            if (off > 2 || off < -2) {
+                speed = -speed;
+            }
         }
 
         if (diagIndex.getValue() == 2) {
