@@ -148,7 +148,7 @@ public class GameScreen extends Screen {
                 } else if (tileInFrontName.equals("28.mfb")) { // Special crate ;)
                     if (!rope) {
                         info = "You peer behind the crates. There’s scissors on the table. If only your hands were free.";
-                    } else {
+                    } else if (!scissors) {
                         info = "You tie the rope into a lasso to snag the scissors. These would've been handy earlier...";
                         scissors = true;
                         tileMap.setTile(1, 7, "11B.mfb");
@@ -164,6 +164,7 @@ public class GameScreen extends Screen {
                     info = "You contact the U.S. and save the day!";
                     Game.getAudioHandler().playSoundEffect("end.wav");
                     Game.getAudioHandler().pauseMusic();
+                    Game.setCurrentScreen(new EndScreen());
                 } else {
                     info = "There's nothing here.";
                 }
