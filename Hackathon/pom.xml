@@ -28,7 +28,7 @@
     <dependency>
       <groupId>com.tylerroyer.molasses</groupId>
       <artifactId>MolassesEngine</artifactId>
-      <version>0.3.9.nosplash</version>
+      <version>0.3.10.nosplash</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -60,6 +60,13 @@
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifest>
+                <mainClass>com.theballotbears.hackathon.Driver</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
           <version>3.0.2</version>
         </plugin>
         <plugin>
